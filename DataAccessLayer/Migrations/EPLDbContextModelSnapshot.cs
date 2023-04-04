@@ -37,7 +37,12 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("PlayerId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Players");
                 });
@@ -50,29 +55,24 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"));
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TeamId");
 
-                    b.HasIndex("PlayerId");
-
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("EntityLayer.Teams", b =>
+            modelBuilder.Entity("EntityLayer.Players", b =>
                 {
-                    b.HasOne("EntityLayer.Players", "Player")
+                    b.HasOne("EntityLayer.Teams", "Teams")
                         .WithMany()
-                        .HasForeignKey("PlayerId")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Player");
+                    b.Navigation("Teams");
                 });
 #pragma warning restore 612, 618
         }

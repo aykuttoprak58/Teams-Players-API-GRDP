@@ -14,9 +14,9 @@ namespace EntityLayer
         public int TeamId { get; set; }
         [Required]
         public string TeamName { get; set; }
-        [Required]
-        [ForeignKey("Player")]
-        public int PlayerId { get; set; }
-        private Players Player { get; set; }   
+  
+        ICollection<Players> Players { get; set; }  
+
+        
     }
 }
